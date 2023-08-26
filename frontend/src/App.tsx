@@ -1,26 +1,40 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { useEffect, useState } from "react";
+import Login from "./Components/Login";
+import { Button, Typography } from "antd";
+import { LS_Keys } from "./help";
+import axios from "axios";
 
-function App() {
+export default function App() {
+  const username = localStorage.getItem(LS_Keys.username);
+  const [isAuth, setIsAuth] = useState(false);
+
+  useEffect(() => {
+    axios("http://localhost:8080/api/users")
+      .then((res) => {
+        console.log(res);
+        return res;
+      })
+      .catch((err) => {
+        console.log(err);
+        return err;
+      });
+  }, []);
+
+  if (!username) return <Login setIsAuth={setIsAuth} />;
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>
+        Пользователь <Typography.Text keyboard>{username}</Typography.Text> авторизован
+      </h1>
+      <Button
+        onClick={() => {
+          localStorage.removeItem(LS_Keys.username);
+          window.location.reload();
+        }}
+      >
+        LOGOUT
+      </Button>
     </div>
   );
 }
-
-export default App;
