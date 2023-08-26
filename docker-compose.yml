@@ -17,20 +17,22 @@ services:
       - SPRING_DATASOURCE_PASSWORD=postgres
       - SPRING_JPA_HIBERNATE_DDL_AUTO=update
     networks:
-      - demo-network
+      - platform-network
 
 
   db:
     image: 'postgres:13.1-alpine'
     volumes:
       - postgres_data:/var/lib/postgresl/data/
-      - ./src/main/resources/sql/schema.sql:/docker-entrypoint-initdb.d/schema.sql
+      - ./backend/src/main/resources/sql/schema.sql:/docker-entrypoint-initdb.d/schema.sql
     ports:
       - "5432:5432"
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
       - POSTGRES_DB=nerdvscode
+    networks:
+      - platform-network
 
   frontend:
     image: "frontend-image"
@@ -41,11 +43,11 @@ services:
     ports:
       - "3000:3000"
     networks:
-      - demo-network
+      - platform-network
 
 volumes:
   postgres_data:
 
 networks:
-  demo-network:
+  platform-network:
     driver: bridge
