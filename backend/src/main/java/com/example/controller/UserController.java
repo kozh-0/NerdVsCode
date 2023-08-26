@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -22,7 +21,7 @@ public class UserController {
     }
 
     @PostMapping(value = "/users", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public UserDtoResponse register(@Valid @RequestBody UserDtoRequest registerUserDtoRequest) throws Exception {
+    public UserDtoResponse register(@RequestBody UserDtoRequest registerUserDtoRequest) throws Exception {
         return userService.register(registerUserDtoRequest);
     }
 
