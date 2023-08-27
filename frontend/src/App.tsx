@@ -8,13 +8,12 @@ import Page from "./Components/Page";
 
 export default function App() {
   const username = localStorage.getItem(LS_Keys.username);
-  const [isAuth, setIsAuth] = useState(false);
 
-  if (username) return <Login setIsAuth={setIsAuth} />;
+  if (username) return <Login />;
 
   return (
     <div className="App">
-      <div className="center">
+      {/* <div className="center">
         <h1>
           Пользователь <Typography.Text keyboard>{username}</Typography.Text> авторизован
         </h1>
@@ -26,8 +25,8 @@ export default function App() {
         >
           LOGOUT
         </Button>
-      </div>
-      <br />
+      </div> */}
+      {/* <br /> */}
       <Routes>
         <Route path="/" element={<Main />} />
         <Route path="/car/:id" element={<Page />} />

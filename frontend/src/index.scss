@@ -10,15 +10,28 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
 }
 
-.auth {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+.App {
+  padding: 20px 15px 50px 15px;
 }
+
+// .auth {
+//   position: absolute;
+//   top: 50%;
+//   left: 50%;
+//   transform: translate(-50%, -50%);
+// }
 
 .center {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-wrap: wrap;
+}
+
+.price_tag {
+  margin: 0;
+  padding: 4px 8px;
+  border-radius: 7px;
+  background: rgb(71, 223, 0);
+  display: inline-block;
 }

@@ -12,14 +12,10 @@ interface LoginData {
   email: string;
 }
 
-export default function Login({
-  setIsAuth,
-}: {
-  setIsAuth: (value: React.SetStateAction<boolean>) => void;
-}) {
+export default function Login() {
   const [messageApi, contextHolder] = message.useMessage();
   return (
-    <div className="auth">
+    <div>
       {contextHolder}
       <Form
         name="basic"
@@ -30,7 +26,6 @@ export default function Login({
             .then((res) => {
               console.log("Success:", res);
               localStorage.setItem(LS_Keys.username, formData.username);
-              setIsAuth(true);
               messageApi.success({ content: "Вы успешно зарегистрировались!" });
               return res;
             })
