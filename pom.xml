@@ -16,6 +16,7 @@
 	<description>Demo project for Spring Boot</description>
     <modules>
         <module>backend</module>
+		<module>mock-bank</module>
 	</modules>
     <properties>
 		<java.version>11</java.version>

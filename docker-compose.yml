@@ -34,6 +34,38 @@ services:
     networks:
       - platform-network
 
+  mock-bank:
+    image: "mock-bank-image"
+    container_name: mock-bank
+    build:
+      context: ./mock-bank
+      dockerfile: Dockerfile
+    ports:
+      - "8081:8081"
+    depends_on:
+      - mock-bank-db
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://mock-bank-db:5432/mock-bank
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=postgres
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+    networks:
+      - platform-network
+
+  mock-bank-db:
+    image: 'postgres:13.1-alpine'
+    volumes:
+      - postgres_data:/var/lib/postgresl/data/
+      - ./mock-bank/src/main/resources/sql/schema.sql:/docker-entrypoint-initdb.d/schema.sql
+    ports:
+      - "5433:5432"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=mock-bank
+    networks:
+      - platform-network
+
   frontend:
     image: "frontend-image"
     container_name: frontend
