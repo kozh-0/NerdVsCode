@@ -65,11 +65,11 @@ export default function Page() {
         <img src={car.image} alt={car.model} />
         <div style={{ marginLeft: "2%" }}>
           <div className="car_info_title">
-            <Title level={1} style={{ margin: "10px 0" }}>
+            <Title level={1}>
               {car.make} {car.model}
             </Title>
 
-            <Title level={2} className="price_tag" style={{ margin: "0 0 10px" }}>
+            <Title level={2} className="price_tag">
               {car.price * 100} руб.
             </Title>
           </div>

@@ -62,6 +62,7 @@ export default function Credit({ price }: { price: number }) {
           type="primary"
           onClick={() => {
             Modal.info({
+              // maskClosable: true,
               title: "Расчитать ваш кредит",
               open: modal.isOpen,
               closable: true,

@@ -1,22 +1,22 @@
 import { useQuery } from "@tanstack/react-query";
-import { Avatar, Button, Card, Result, Spin } from "antd";
+import { Avatar, Button, Card, FloatButton, Result, Spin } from "antd";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { data } from "../help/data";
 import Meta from "antd/es/card/Meta";
 
 export default function Main() {
-  //   const { data, isLoading, error } = useQuery({
-  //     queryFn: () =>
-  //       axios
-  //         .get(`https://freetestapi.com/api/v1/cars`)
-  //         .get(`https://myfakeapi.com/api/cars`)
-  //         .then((res) => res)
-  //         .catch((err) => err),
-  //     queryKey: ["cars"],
-  //     refetchOnMount: false,
-  //     refetchOnWindowFocus: false,
-  //   });
+  // const { data, isLoading, error } = useQuery({
+  //   queryFn: () =>
+  //     axios
+  //       .get(`https://freetestapi.com/api/v1/cars`)
+  //       // .get(`https://myfakeapi.com/api/cars`)
+  //       .then((res) => res)
+  //       .catch((err) => err),
+  //   queryKey: ["cars"],
+  //   refetchOnMount: false,
+  //   refetchOnWindowFocus: false,
+  // });
 
   //   if (isLoading) return <Spin tip="Загрузка..." size="large" style={{ width: "100%" }} />;
 
@@ -29,7 +29,11 @@ export default function Main() {
       <h1>Main</h1>
       <div className="center" style={{ justifyContent: "space-evenly" }}>
         {data.map((el) => (
-          <Card key={el.id} style={{ width: 400 }} cover={<img alt="example" src={el.image} />}>
+          <Card
+            key={el.id}
+            style={{ width: 400, margin: "5px" }}
+            cover={<img alt="example" src={el.image} />}
+          >
             <Meta
               title={
                 <div>
@@ -52,6 +56,7 @@ export default function Main() {
           </Card>
         ))}
       </div>
+      <FloatButton.BackTop type="primary" />
     </div>
   );
 }
