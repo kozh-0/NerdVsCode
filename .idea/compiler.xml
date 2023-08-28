@@ -19,6 +19,7 @@
           <entry name="$MAVEN_REPOSITORY$/org/mapstruct/mapstruct/1.4.2.Final/mapstruct-1.4.2.Final.jar" />
         </processorPath>
         <module name="backend" />
+        <module name="mock-bank" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -30,6 +31,7 @@
       <module name="backend" options="-parameters" />
       <module name="demo" options="-parameters" />
       <module name="frontend" options="-parameters" />
+      <module name="mock-bank" options="-parameters" />
     </option>
   </component>
 </project>

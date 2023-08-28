@@ -1,21 +1,25 @@
-package com.example.dto.response;
+package com.example.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserDtoResponse {
+public class ClientDto {
 
     private Long id;
     private String lastName;
     private String firstName;
     private String patronymic;
-    private String passportDetails;
     private String email;
-    private String telegram;
+    private int age;
+    private int workExperience;
+    private int inn;
+    private int snils;
+    private int creditRating;
+    private int debtLoad;
+    private int numberOpenLoans;
 
 }
