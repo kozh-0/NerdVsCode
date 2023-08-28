@@ -15,3 +15,27 @@ CREATE TABLE "user"
 
 INSERT INTO "user" (id, last_name, first_name, patronymic, passport_details, email, telegram)
 VALUES (1, 'Королёв', 'Михаил', 'Петрович', '564521 9847', 'mikhail75@gmail.com', 'some telegram...');
+
+
+DROP TABLE IF EXISTS "client" CASCADE;
+
+CREATE TABLE client
+(
+    id SERIAL NOT NULL,
+    last_name VARCHAR(255) NOT NULL,
+    first_name VARCHAR(255) NOT NULL,
+    patronymic VARCHAR(255),
+    passport_details VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL,
+    age INTEGER NOT NULL,
+    work_experience NUMERIC NOT NULL,
+    loan_security VARCHAR(255) NOT NULL,
+    debt_load NUMERIC NOT NULL,
+    number_open_loans INTEGER NOT NULL,
+    PRIMARY KEY (id)
+);
+
+INSERT INTO client (id, last_name, first_name, patronymic, passport_details, email, age, work_experience, loan_security, debt_load, number_open_loans)
+VALUES (1, 'Королёв', 'Михаил', 'Петрович', '564521 9847', 'mikhail75@gmail.com', 50, 15, 'квартира', 0.56, 4);
+
+
