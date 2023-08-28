@@ -1,0 +1,6 @@
+com\example\MockBankDemo.class
+com\example\controller\ClientController.class
+com\example\configuration\SecurityConfig.class
+com\example\entity\Client.class
+com\example\repository\ClientRepository.class
+com\example\service\ClientService.class

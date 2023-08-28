@@ -1,6 +1,7 @@
 package com.example.controller;
 
 import com.example.dto.request.UserDtoRequest;
+import com.example.dto.response.ClientDtoResponse;
 import com.example.dto.response.ProposalDtoResponse;
 import com.example.dto.response.UserDtoResponse;
 import com.example.service.UserService;
@@ -28,8 +29,8 @@ public class UserController {
     }
 
     @GetMapping(value = "/users", produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<UserDtoResponse> getUsers() {
-        return userService.getAllUsers();
+    public List<ClientDtoResponse> getClients() {
+        return userService.getAllClients();
     }
 
     @GetMapping(value = "/clients/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
