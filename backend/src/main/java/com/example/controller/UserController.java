@@ -1,9 +1,8 @@
 package com.example.controller;
 
-import com.example.dto.ClientDto;
 import com.example.dto.request.UserDtoRequest;
+import com.example.dto.response.ProposalDtoResponse;
 import com.example.dto.response.UserDtoResponse;
-import com.example.entity.User;
 import com.example.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -24,7 +23,7 @@ public class UserController {
     }
 
     @PostMapping(value = "/users", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public UserDtoResponse proposalProcessing(@RequestBody UserDtoRequest userDtoRequest) throws Exception {
+    public ProposalDtoResponse proposalProcessing(@RequestBody UserDtoRequest userDtoRequest) throws Exception {
         return userService.proposalProcessing(userDtoRequest);
     }
 

@@ -15,28 +15,21 @@ public class BankTests {
         assertEquals(true, true);
     }
 
-    /*private static final Logger log = LoggerFactory.getLogger(BankTests.class);
-    private final WebClient webClient;
+    //private static final Logger log = LoggerFactory.getLogger(BankTests.class);
 
-    public BankTests(WebClient webClient) {
-        this.webClient = webClient;
-    }
-
-
-     @Test
+    /*@Test
     public void bankTest() {
-         Client client = webClient
-                 .get()
+         WebClient webClient = WebClient.create("http://localhost:8081");
+         Client client = webClient.get()
                  .uri(String.join("", "/clients/1"))
                  .retrieve()
                  .bodyToMono(Client.class)
                  .block();
 
 
-
-
         System.out.println(client.toString());
         assertEquals(1, client.getId());
     }*/
+
 
 }
