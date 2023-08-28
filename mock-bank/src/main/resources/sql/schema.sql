@@ -16,3 +16,6 @@ CREATE TABLE client
     number_open_loans INTEGER NOT NULL,
     PRIMARY KEY (id)
 );
+
+INSERT INTO client (id, last_name, first_name, patronymic, email, age, work_experience, inn, snils, credit_rating, debt_load, number_open_loans)
+VALUES (1, 'Королёв', 'Михаил', 'Петрович', 'mikhail75@gmail.com', 8, 7, 6, 5, 4, 3, 2);

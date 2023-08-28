@@ -11,17 +11,11 @@ import lombok.NoArgsConstructor;
 public class UserDtoResponse {
 
     private Long id;
-
-    private String username;
-
-    private String password;
-
     private String lastName;
-
     private String firstName;
-
     private String patronymic;
-
+    private String passportDetails;
     private String email;
+    private String telegram;
 
 }
