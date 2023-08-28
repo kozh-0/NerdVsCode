@@ -12,7 +12,12 @@ interface LoginData {
   email: string;
 }
 
-export default function Login() {
+interface LoginProps {
+  setModal: (obj: React.SetStateAction<{ isOpen: boolean; confirmLoading: boolean }>) => void;
+  modal: { isOpen: boolean; confirmLoading: boolean };
+}
+
+export default function Login({ setModal, modal }: LoginProps) {
   const [messageApi, contextHolder] = message.useMessage();
   return (
     <div>
@@ -20,78 +25,62 @@ export default function Login() {
       <Form
         name="basic"
         style={{ maxWidth: 600 }}
-        onFinish={(formData: LoginData) =>
-          axios
-            .post("http://localhost:8080/api/users", { body: formData })
-            .then((res) => {
-              console.log("Success:", res);
-              localStorage.setItem(LS_Keys.username, formData.username);
-              messageApi.success({ content: "Вы успешно зарегистрировались!" });
-              return res;
-            })
-            .catch((err) => {
-              console.log("ERR", err);
-              messageApi.error({ content: "Что-то пошло не так ¯\\_(ツ)_/¯" });
-              return err;
-            })
-        }
+        onFinish={(formData: LoginData) => {
+          setModal((p) => ({ ...p, confirmLoading: true }));
+          console.log(formData);
+          setTimeout(() => {
+            axios
+              .post("http://localhost:8080/api/users", { body: formData })
+              .then((res) => {
+                console.log("Success:", res);
+                localStorage.setItem(LS_Keys.username, formData.username);
+                messageApi.success({ content: "Вы успешно зарегистрировались!" });
+                setModal({ isOpen: false, confirmLoading: false });
+                return res;
+              })
+              .catch((err) => {
+                console.log("ERR", err);
+                messageApi.error({ content: "Что-то пошло не так ¯\\_(ツ)_/¯" });
+                setModal((p) => ({ ...p, confirmLoading: false }));
+                return err;
+              });
+          }, 2000);
+        }}
         onFinishFailed={(errInfo) => console.error(errInfo)}
         autoComplete="off"
       >
         <Form.Item
-          label="Username"
+          label="ФИО"
           name="username"
-          rules={[{ required: true, message: "Please input your username!" }]}
+          rules={[{ required: true, message: "Введите ФИО!" }]}
         >
           <Input />
         </Form.Item>
         <Form.Item
-          label="Password"
-          name="password"
-          rules={[{ required: true, message: "Please input your password!" }]}
-        >
-          <Input.Password />
-        </Form.Item>
-        <Form.Item
-          label="Confirm password"
-          name="passwordConfirm"
-          rules={[{ required: true, message: "Repeat your password!" }]}
-        >
-          <Input.Password />
-        </Form.Item>
-
-        <Form.Item
-          label="First Name"
-          name="firstName"
-          rules={[{ required: true, message: "Please input your first name!" }]}
+          label="Паспортные данные"
+          name="passport"
+          rules={[{ required: true, message: "Введите паспортные данные!" }]}
         >
           <Input />
         </Form.Item>
         <Form.Item
-          label="Last Name"
-          name="lastName"
-          rules={[{ required: true, message: "Please input your last name!" }]}
-        >
-          <Input />
-        </Form.Item>
-        <Form.Item
-          label="Patronymic"
-          name="patronymic"
-          rules={[{ required: true, message: "Please input your patronymic!" }]}
-        >
-          <Input />
-        </Form.Item>
-        <Form.Item
-          label="Email"
+          label="E-mail"
           name="email"
-          rules={[{ required: true, message: "Please input your email!" }]}
+          rules={[{ required: true, message: "Введите email!" }]}
+        >
+          <Input />
+        </Form.Item>
+        <Form.Item
+          label="Telegram"
+          name="telegram"
+          rules={[{ required: true, message: "Введите telegram!" }]}
         >
           <Input />
         </Form.Item>
 
-        <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-          <Button type="primary" htmlType="submit">
-            Submit
+        <Form.Item style={{ textAlign: "right", margin: 0 }}>
+          <Button type="primary" htmlType="submit" loading={modal.confirmLoading}>
+            Отправить
           </Button>
         </Form.Item>
       </Form>

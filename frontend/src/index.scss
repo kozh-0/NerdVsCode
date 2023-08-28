@@ -10,6 +10,24 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
 }
 
+::-webkit-scrollbar {
+  width: 10px;
+  // &-track {
+  // background: var(--bg-dark-theme);
+  // }
+  &-thumb {
+    border-radius: 5px;
+    background: #6c6c6c;
+
+    &:hover {
+      background: #5a5a5a;
+    }
+    &:active {
+      background: #4a4a4a;
+    }
+  }
+}
+
 .App {
   padding: 20px 15px 50px 15px;
 }
@@ -29,9 +47,38 @@ code {
 }
 
 .price_tag {
-  margin: 0;
+  // margin: 0;
   padding: 4px 8px;
   border-radius: 7px;
   background: rgb(71, 223, 0);
   display: inline-block;
+}
+
+.car_info {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  img {
+    max-width: 50%;
+    border-radius: 10px;
+  }
+}
+
+@media (max-width: 980px) {
+  .car_info {
+    flex-direction: column;
+    &_title {
+      display: flex;
+      align-items: center;
+      justify-content: space-evenly;
+    }
+    img {
+      max-width: fit-content;
+    }
+  }
+}
+@media (max-width: 540px) {
+  .car_info_title {
+    flex-direction: column;
+  }
 }

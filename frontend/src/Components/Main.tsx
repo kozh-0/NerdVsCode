@@ -9,6 +9,7 @@ export default function Main() {
   //   const { data, isLoading, error } = useQuery({
   //     queryFn: () =>
   //       axios
+  //         .get(`https://freetestapi.com/api/v1/cars`)
   //         .get(`https://myfakeapi.com/api/cars`)
   //         .then((res) => res)
   //         .catch((err) => err),
@@ -26,9 +27,9 @@ export default function Main() {
   return (
     <div>
       <h1>Main</h1>
-      <div className="center">
+      <div className="center" style={{ justifyContent: "space-evenly" }}>
         {data.map((el) => (
-          <Card style={{ width: 400 }} cover={<img alt="example" src={el.image} />}>
+          <Card key={el.id} style={{ width: 400 }} cover={<img alt="example" src={el.image} />}>
             <Meta
               title={
                 <div>

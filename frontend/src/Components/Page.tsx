@@ -5,7 +5,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { data } from "../help/data";
 import Credit from "./Credit";
 const { Item } = Descriptions;
-const { Text } = Typography;
+const { Text, Title } = Typography;
 
 export default function Page() {
   const { id } = useParams();
@@ -61,17 +61,18 @@ export default function Page() {
       <Button type="primary" onClick={() => navigate(-1)}>
         Back
       </Button>
-      <div style={{ display: "flex", justifyContent: "center", marginTop: "20px" }}>
-        <img src={car.image} alt={car.model} style={{ maxWidth: "50%", borderRadius: "10px" }} />
+      <div className="car_info">
+        <img src={car.image} alt={car.model} />
         <div style={{ marginLeft: "2%" }}>
-          <Text>
-            <h1>
+          <div className="car_info_title">
+            <Title level={1} style={{ margin: "10px 0" }}>
               {car.make} {car.model}
-            </h1>
-          </Text>
-          <Text>
-            <h2 className="price_tag">{car.price * 100} руб.</h2>
-          </Text>
+            </Title>
+
+            <Title level={2} className="price_tag" style={{ margin: "0 0 10px" }}>
+              {car.price * 100} руб.
+            </Title>
+          </div>
 
           <Descriptions
             style={{ maxWidth: "100%" }}
