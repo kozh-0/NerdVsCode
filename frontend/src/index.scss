@@ -10,6 +10,12 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
 }
 
+header {
+  height: 50px;
+  background: orange;
+  box-shadow: 0px 5px 8px 0px rgba(34, 60, 80, 0.2);
+}
+
 ::-webkit-scrollbar {
   width: 10px;
   // &-track {

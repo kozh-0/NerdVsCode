@@ -37,6 +37,7 @@ export default function Login({ setModal, modal }: LoginProps) {
                 content: `Одобрено! Ваш кредитный рейтинг - ${res.data.rating}`,
               });
               setModal({ isOpen: false, confirmLoading: false });
+              window.location.reload();
               return res;
             })
             .catch((err) => {
