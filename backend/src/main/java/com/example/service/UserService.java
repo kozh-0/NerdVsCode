@@ -1,6 +1,7 @@
 package com.example.service;
 
 import com.example.dto.request.UserDtoRequest;
+import com.example.dto.response.ClientDtoResponse;
 import com.example.dto.response.ProposalDtoResponse;
 import com.example.dto.response.UserDtoResponse;
 import com.example.entity.Client;
@@ -22,10 +23,12 @@ public class UserService {
 
     private final UserRepository userRepository;
     private final ClientRepository clientRepository;
+    private final WebClient.Builder webClientBuilder;
 
-    public UserService(UserRepository userRepository, ClientRepository clientRepository) {
+    public UserService(UserRepository userRepository, ClientRepository clientRepository, WebClient.Builder webClientBuilder) {
         this.userRepository = userRepository;
         this.clientRepository = clientRepository;
+        this.webClientBuilder = webClientBuilder;
     }
 
     public ProposalDtoResponse proposalProcessing(UserDtoRequest userDtoRequest) throws Exception {
@@ -40,16 +43,23 @@ public class UserService {
         return new ProposalDtoResponse(rating);
     }
 
-    public List<UserDtoResponse> getAllUsers() {
-        List<User> users = userRepository.findAll();
-        List<UserDtoResponse> userDtoResponses = new ArrayList<>();
-        for (User user : users) {
-            userDtoResponses.add(new UserDtoResponse(user.getId(), user.getLastName(), user.getFirstName(), user.getPatronymic(), user.getPassportDetails(), user.getEmail(), user.getTelegram()));
+    public List<ClientDtoResponse> getAllClients() {
+        List<Client> clients = clientRepository.findAll();
+        List<ClientDtoResponse> clientDtoResponses = new ArrayList<>();
+        for (Client client : clients) {
+            clientDtoResponses.add(new ClientDtoResponse(client.getId(), client.getLastName(), client.getFirstName(), client.getPatronymic(), client.getPassportDetails(), client.getEmail(), client.getAge(), client.getWorkExperience(), client.getLoanSecurity(), client.getDebtLoad(), client.getNumberOpenLoans()));
         }
-        return userDtoResponses;
+        return clientDtoResponses;
     }
 
     public Object getBankClient(long id) {
+        Object obj = webClientBuilder.build()
+                .get()
+                .uri("http://localhost:8081/api/clients/" + id)
+                .retrieve()
+                .bodyToMono(Object.class)
+                .block();
+
         /*WebClient webClient = WebClient.create("http://localhost:8081");
         ClientDto client = webClient.get()
                 .uri(String.join("", "/clients/1"))
@@ -72,7 +82,7 @@ public class UserService {
         ClientDto clientDto = response.getBody();
         return clientDto;*/
         //return client;
-        return null;
+        return obj;
     }
 
     public static String scoring(Client client) {
