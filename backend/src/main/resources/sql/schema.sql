@@ -1,17 +1,16 @@
-DROP TABLE IF EXISTS "client" CASCADE;
+DROP TABLE IF EXISTS "order" CASCADE;
 
-CREATE TABLE client
+CREATE TABLE "order"
 (
     id SERIAL NOT NULL,
-    last_name VARCHAR(255) NOT NULL,
-    first_name VARCHAR(255) NOT NULL,
-    patronymic VARCHAR(255),
+    name VARCHAR(255) NOT NULL,
     passport_details VARCHAR(255) NOT NULL,
+    monthly_payment NUMERIC NOT NULL,
+    rate NUMERIC NOT NULL,
+    init_fee NUMERIC NOT NULL,
+    year INTEGER NOT NULL,
     email VARCHAR(255) NOT NULL,
-    age INTEGER NOT NULL,
-    work_experience NUMERIC NOT NULL,
-    loan_security VARCHAR(255) NOT NULL,
-    debt_load NUMERIC NOT NULL,
-    number_open_loans INTEGER NOT NULL,
+    telegram VARCHAR(255) NOT NULL,
     PRIMARY KEY (id)
 );
+
