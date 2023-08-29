@@ -29,8 +29,8 @@ public class ClientController {
     }
 
     @GetMapping(value = "/clients", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ClientDtoResponse getClient(@RequestParam(value = "passportDetails") String passportDetails) throws Exception {
-        return clientService.getClient(passportDetails);
+    public List<ClientDtoResponse> getClients() throws Exception {
+        return clientService.getClients();
     }
 
 }
