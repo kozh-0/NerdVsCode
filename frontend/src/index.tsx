@@ -7,13 +7,12 @@ import { BrowserRouter } from "react-router-dom";
 import axios from "axios";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
-const queryClient = new QueryClient();
 axios.defaults.headers.common["Access-Control-Allow-Origin"] = "*";
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
     <BrowserRouter>
-      <QueryClientProvider client={queryClient}>
+      <QueryClientProvider client={new QueryClient()}>
         <ReactQueryDevtools initialIsOpen={true} />
         <App />
       </QueryClientProvider>

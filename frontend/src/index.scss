@@ -10,9 +10,10 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
 }
 
-header {
-  height: 50px;
-  background: orange;
+.HEADER {
+  position: sticky;
+  top: 0;
+  z-index: 10;
   box-shadow: 0px 5px 8px 0px rgba(34, 60, 80, 0.2);
 }
 
@@ -63,9 +64,12 @@ header {
 .car_info {
   display: flex;
   justify-content: center;
+  &_parent {
+    margin-left: 2%;
+  }
   margin-top: 20px;
-  img {
-    max-width: 45%;
+  .image {
+    width: 40%;
     border-radius: 10px;
   }
   h1 {
@@ -79,22 +83,29 @@ header {
 @media (max-width: 980px) {
   .car_info {
     flex-direction: column;
-    &_title {
-      display: flex;
-      align-items: center;
-      justify-content: space-evenly;
+    &_parent {
+      margin-left: 0;
+      &_title {
+        display: flex;
+        align-items: center;
+        justify-content: space-evenly;
 
-      .price_tag {
-        margin: 0 !important;
+        .price_tag {
+          margin: 0 !important;
+        }
       }
     }
-    img {
-      max-width: fit-content;
+    .image {
+      height: 300px;
+      width: 100%;
     }
   }
 }
 @media (max-width: 550px) {
-  .car_info_title {
-    flex-direction: column;
+  .car_info_parent {
+    &_title {
+      flex-direction: column;
+      margin-bottom: 20px;
+    }
   }
 }

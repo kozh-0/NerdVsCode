@@ -42,11 +42,7 @@ export default function Credit({ price }: { price: number }) {
   return (
     <div style={{ maxWidth: "600px", margin: "0 auto" }}>
       <h2 style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
-        <img
-          src="https://yt3.googleusercontent.com/ytc/AOPolaRXAKJt-rFPOjizQl5FOGX8ylGNPpRMhJaaY9EbTQ=s900-c-k-c0x00ffffff-no-rj"
-          alt="ПСБ"
-          style={{ width: "50px", borderRadius: "7px" }}
-        />
+        <img src="/psb.jpg" alt="ПСБ" style={{ width: "50px", borderRadius: "7px" }} />
         &nbsp;Предложение от ПСБ
       </h2>
       <div className="center" style={{ justifyContent: "space-evenly" }}>
@@ -60,7 +56,7 @@ export default function Credit({ price }: { price: number }) {
         />
         {!userRating && (
           <Tooltip
-            title='Для просмотра заблокированных продуктов, нажмите кнопку "Узнать"'
+            title='Для просмотра заблокированных продуктов, нажмите на кнопку "Узнать"'
             placement="right"
           >
             <QuestionCircleTwoTone style={{ transform: "scale(1.5)" }} />
@@ -99,7 +95,7 @@ export default function Credit({ price }: { price: number }) {
           title={
             userRating
               ? "Предлагаем вам такие условия"
-              : 'Это усредненные значения, для уточнения условий нажмите кнопку "Узнать"'
+              : 'Это усредненные значения, для уточнения условий нажмите на кнопку "Узнать"'
           }
           placement="left"
         >

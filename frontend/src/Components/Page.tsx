@@ -62,9 +62,13 @@ export default function Page() {
         Back
       </Button>
       <div className="car_info">
-        <img src={car.image} alt={car.model} />
-        <div style={{ marginLeft: "2%" }}>
-          <div className="car_info_title">
+        <div
+          className="image"
+          style={{ background: `#333 url(${car.image}) no-repeat right top / cover` }}
+        />
+        {/* <img src={car.image} alt={car.model} /> */}
+        <div className="car_info_parent">
+          <div className="car_info_parent_title">
             <Title level={1}>
               {car.make} {car.model}
             </Title>

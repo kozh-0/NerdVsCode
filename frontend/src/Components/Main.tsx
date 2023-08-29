@@ -27,7 +27,6 @@ export default function Main() {
 
   return (
     <div>
-      <h1>Main</h1>
       <div className="center" style={{ justifyContent: "space-evenly" }}>
         {data.map((el) => (
           <Card
