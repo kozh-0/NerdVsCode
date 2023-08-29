@@ -18,14 +18,8 @@ public class ClientService {
         this.clientRepository = clientRepository;
     }
 
-    @Transactional
-    public List<Client> getAllClients() {
-        return clientRepository.findAll();
-    }
-
-    public Client getClient(long id) {
-        Optional<Client> client = clientRepository.findById(id);
-        return client.orElse(null);
+    public Client getClient(String passportDetails) {
+        return clientRepository.findByPassportDetails(passportDetails);
     }
 
 }
