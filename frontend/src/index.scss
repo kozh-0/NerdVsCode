@@ -18,9 +18,20 @@ code {
 }
 
 footer {
+  box-shadow: 0px -2px 8px 0px rgba(34, 60, 80, 0.2);
   padding: 10px 0;
   text-align: center;
   background: #ededed;
+  .footer_inner {
+    a {
+      color: black;
+      text-decoration: none;
+      transition: all ease 0.2s;
+      &:hover {
+        color: #1677ff;
+      }
+    }
+  }
 }
 
 ::-webkit-scrollbar {
@@ -76,7 +87,7 @@ footer {
   }
   margin-top: 20px;
   .image {
-    width: 40%;
+    width: 45%;
     border-radius: 10px;
   }
   h1 {

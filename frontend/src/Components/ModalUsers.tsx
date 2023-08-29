@@ -21,7 +21,7 @@ interface UserI {
 export default function ModalUsers() {
   const { data, isSuccess, error } = useQuery<{ data: UserI[] }>({
     queryFn: () =>
-      axios(`http://localhost:8080/api/users`)
+      axios(`http://localhost:8080/api/clients`)
         .then((res) => res)
         .catch((err) => err),
     queryKey: ["users"],

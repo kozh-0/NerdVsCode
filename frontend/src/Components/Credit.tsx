@@ -1,10 +1,16 @@
 import { Button, Modal, Radio, Slider, Tooltip, Typography } from "antd";
 import { useState } from "react";
-import Login from "./Login";
+import CreditForm from "./CreditForm";
 import declOfNum, { LS_Keys } from "../help";
 import { creditRates } from "../help";
 import { QuestionCircleTwoTone } from "@ant-design/icons";
+import SendForm from "./SendForm";
 const { Text } = Typography;
+
+interface FormProps {
+  setModal: (obj: React.SetStateAction<{ isOpen: boolean; confirmLoading: boolean }>) => void;
+  modal: { isOpen: boolean; confirmLoading: boolean };
+}
 
 type LS_RATING = "Высокий" | "Низкий" | "Средний" | null;
 
@@ -34,7 +40,7 @@ export default function Credit({ price }: { price: number }) {
     ((1 + monthsRate) ** months - 1)
   ); /* .toFixed(2) */
 
-  const creditBody = (rubPrice - initialFee) * ratioA;
+  const monthlyPayment = (rubPrice - initialFee) * ratioA;
 
   console.log(rubPrice, initialFee, ratioA, userRating);
   console.log(creditRates, radioOptions);
@@ -88,7 +94,7 @@ export default function Credit({ price }: { price: number }) {
         />
         <Tooltip
           title={`Вы не можете внести более 60% и менее ${
-            userRating ? Math.round(userRating.initialFee) * 100 : 0.2 * 100
+            userRating ? userRating.initialFee * 100 : 0.2 * 100
           }% от стоимости машины`}
           placement="right"
         >
@@ -105,14 +111,37 @@ export default function Credit({ price }: { price: number }) {
           placement="left"
         >
           <Text keyboard style={{ fontSize: "20px" }}>
-            {Math.round(creditBody)}₽
+            {Math.round(monthlyPayment)}₽
           </Text>{" "}
           в месяц на {year} {declOfNum(year, ["год", "года", "лет"])}
         </Tooltip>
         {userRating ? (
-          <Button size="large" type="primary" danger style={{ fontWeight: "bold" }}>
-            Оформить
-          </Button>
+          <>
+            <Button
+              size="large"
+              type="primary"
+              danger
+              style={{ fontWeight: "bold" }}
+              onClick={() => setModal((p) => ({ ...p, isOpen: true }))}
+            >
+              Оформить
+            </Button>
+            {/* ВОТ ЭТОТ МОДАЛ СДЕЛАТЬ */}
+            <Modal
+              maskClosable
+              closable
+              footer={null}
+              open={modal.isOpen}
+              title="Отправка данных" /*  open={isModalOpen} onOk={handleOk} onCancel={handleCancel} */
+            >
+              <SendForm
+                year={year}
+                initFee={initFee}
+                rate={rate}
+                monthlyPayment={Math.round(monthlyPayment)}
+              />
+            </Modal>
+          </>
         ) : (
           <Button
             size="large"
@@ -124,7 +153,7 @@ export default function Credit({ price }: { price: number }) {
                 open: modal.isOpen,
                 closable: true,
                 centered: true,
-                content: <Login modal={modal} setModal={setModal} />,
+                content: <CreditForm />,
                 footer: null,
               });
               setModal((p) => ({ ...p, isOpen: true }));

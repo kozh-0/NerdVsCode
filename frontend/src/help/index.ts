@@ -2,6 +2,7 @@ export const enum LS_Keys {
   rating = "rating",
   telegram = "telegram",
   email = "email",
+  passportDetails = "passportDetails",
 }
 
 // Склонение числительных

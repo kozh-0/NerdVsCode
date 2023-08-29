@@ -50,6 +50,8 @@ export default function Header() {
         localStorage.removeItem(LS_Keys.rating);
         localStorage.removeItem(LS_Keys.email);
         localStorage.removeItem(LS_Keys.telegram);
+        localStorage.removeItem(LS_Keys.passportDetails);
+
         window.location.reload();
       },
     },

@@ -1,23 +1,18 @@
 import { Button, Form, Input, Tooltip, Typography, message } from "antd";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import { LS_Keys } from "../help";
 const { Text } = Typography;
 
 interface FormData {
   email: string;
-  firstName: string;
-  lastName: string;
-  passwordConfirm: string;
-  patronymic: string;
+  // firstName: string;
+  // lastName: string;
+  passportDetails: string;
+  // patronymic: string;
   telegram: string;
 }
 
-interface LoginProps {
-  setModal: (obj: React.SetStateAction<{ isOpen: boolean; confirmLoading: boolean }>) => void;
-  modal: { isOpen: boolean; confirmLoading: boolean };
-}
-
-export default function Login({ setModal, modal }: LoginProps) {
+export default function CreditForm() {
   const [messageApi, contextHolder] = message.useMessage();
   return (
     <div>
@@ -26,10 +21,9 @@ export default function Login({ setModal, modal }: LoginProps) {
         name="basic"
         style={{ maxWidth: 600 }}
         onFinish={(formData: FormData) => {
-          setModal((p) => ({ ...p, confirmLoading: true }));
           console.log(formData);
           axios
-            .post("http://localhost:8080/api/users", formData)
+            .post("http://localhost:8080/api/clients", formData)
             .then((res) => {
               console.log("Success:", res);
               messageApi.success({
@@ -38,22 +32,28 @@ export default function Login({ setModal, modal }: LoginProps) {
               localStorage.setItem(LS_Keys.rating, res.data.rating);
               localStorage.setItem(LS_Keys.telegram, formData.telegram);
               localStorage.setItem(LS_Keys.email, formData.email);
+              localStorage.setItem(LS_Keys.passportDetails, formData.passportDetails);
 
-              setModal({ isOpen: false, confirmLoading: false });
-              window.location.reload();
+              setTimeout(() => {
+                window.location.reload();
+              }, 1000);
               return res;
             })
-            .catch((err) => {
+            .catch((err: AxiosError) => {
               console.log("ERR", err);
-              messageApi.error({ content: "Что-то пошло не так ¯\\_(ツ)_/¯" });
-              setModal((p) => ({ ...p, confirmLoading: false }));
+              messageApi.error({
+                content:
+                  err.response?.status === 500
+                    ? "Некорректные данные"
+                    : "Что-то пошло не так ¯\\_(ツ)_/¯",
+              });
               return err;
             });
         }}
         onFinishFailed={(errInfo) => console.error(errInfo)}
         autoComplete="off"
       >
-        <Form.Item
+        {/* <Form.Item
           label="Фамилия"
           name="lastName"
           rules={[{ required: true, message: "Введите фамилию!" }]}
@@ -75,7 +75,7 @@ export default function Login({ setModal, modal }: LoginProps) {
           rules={[{ required: true, message: "Введите отчество!" }]}
         >
           <Input />
-        </Form.Item>
+        </Form.Item> */}
 
         <Tooltip
           title={
@@ -101,25 +101,29 @@ export default function Login({ setModal, modal }: LoginProps) {
             <Input />
           </Form.Item>
         </Tooltip>
-
-        <Form.Item
-          label="E-mail"
-          name="email"
-          rules={[{ required: true, message: "Введите email!" }]}
+        <Tooltip
+          title="Телеграм и почта нужны настоящие для отправки кредитного предложения"
+          placement="right"
         >
-          <Input />
-        </Form.Item>
+          <Form.Item
+            label="E-mail"
+            name="email"
+            rules={[{ required: true, message: "Введите email!" }]}
+          >
+            <Input />
+          </Form.Item>
 
-        <Form.Item
-          label="Telegram"
-          name="telegram"
-          rules={[{ required: true, message: "Введите telegram!" }]}
-        >
-          <Input />
-        </Form.Item>
+          <Form.Item
+            label="Telegram"
+            name="telegram"
+            rules={[{ required: true, message: "Введите telegram!" }]}
+          >
+            <Input />
+          </Form.Item>
+        </Tooltip>
 
         <Form.Item style={{ textAlign: "right", margin: 0 }}>
-          <Button type="primary" htmlType="submit" loading={modal.confirmLoading} size="large">
+          <Button type="primary" htmlType="submit" size="large">
             Отправить
           </Button>
         </Form.Item>
