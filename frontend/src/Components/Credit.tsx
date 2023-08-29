@@ -22,18 +22,21 @@ export default function Credit({ price }: { price: number }) {
   const [modal, setModal] = useState({ isOpen: false, confirmLoading: false });
 
   const [rate, setRate] = useState(userRating ? userRating.rate : 0.1);
+  const kek = userRating ? userRating.rate : 0.1;
+  // const [radioRate, setRadioRate] = useState(userRating ? userRating.rate : 0.1);
   const [year, setYear] = useState(5);
 
   const initFee = userRating ? Math.round(rubPrice * userRating.initialFee) : rubPrice * 0.2;
   const [initialFee, setInitialFee] = useState(initFee);
 
   const radioOptions = [
-    { label: `Потреб кредит ${rate * 100}%`, value: rate },
+    { label: `Потреб кредит ${kek * 100}%`, value: kek },
     { label: "Автокредит 8%", value: 0.08, disabled: userRating ? false : true },
     { label: "Первая машина 4%", value: 0.04, disabled: true },
   ];
   const months = year * 12;
   const monthsRate = rate / 12;
+  console.log(rate);
 
   const ratioA = +(
     (monthsRate * (1 + monthsRate) ** months) /
@@ -42,8 +45,8 @@ export default function Credit({ price }: { price: number }) {
 
   const monthlyPayment = (rubPrice - initialFee) * ratioA;
 
-  console.log(rubPrice, initialFee, ratioA, userRating);
-  console.log(creditRates, radioOptions);
+  // console.log(initialFee, ratioA, userRating);
+  // console.log(creditRates, radioOptions);
 
   return (
     <div style={{ maxWidth: "600px", margin: "0 auto" }}>
@@ -115,6 +118,7 @@ export default function Credit({ price }: { price: number }) {
           </Text>{" "}
           в месяц на {year} {declOfNum(year, ["год", "года", "лет"])}
         </Tooltip>
+
         {userRating ? (
           <>
             <Button
@@ -128,9 +132,18 @@ export default function Credit({ price }: { price: number }) {
             </Button>
             {/* ВОТ ЭТОТ МОДАЛ СДЕЛАТЬ */}
             <Modal
-              maskClosable
-              closable
-              footer={null}
+              style={{ position: "relative" }}
+              footer={[
+                <Button
+                  style={{ position: "absolute", left: 20, bottom: 30 }}
+                  size="large"
+                  danger
+                  key="back"
+                  onClick={() => setModal({ confirmLoading: false, isOpen: false })}
+                >
+                  Отменить
+                </Button>,
+              ]}
               open={modal.isOpen}
               title="Отправка данных" /*  open={isModalOpen} onOk={handleOk} onCancel={handleCancel} */
             >

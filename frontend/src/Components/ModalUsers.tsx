@@ -51,10 +51,12 @@ export default function ModalUsers() {
 
   return (
     <div>
-      {users.map((el) => (
+      {users.map((el, idx) => (
         <Card style={{ marginTop: 16 }}>
           <Meta
-            avatar={<Avatar src="https://xsgames.co/randomusers/avatar.php?g=pixel&key=1" />}
+            avatar={
+              <Avatar size="large" src={`https://randomuser.me/api/portraits/lego/${idx}.jpg`} />
+            }
             title={`${el.firstName} ${el.lastName} ${el.patronymic}`}
             description={
               <ul>
