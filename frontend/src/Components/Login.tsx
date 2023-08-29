@@ -29,12 +29,15 @@ export default function Login({ setModal, modal }: LoginProps) {
           setModal((p) => ({ ...p, confirmLoading: true }));
           console.log(formData);
           axios
-            .post("http://localhost:8080/api/users", { body: formData })
+            .post("http://localhost:8080/api/users", formData)
             .then((res) => {
               console.log("Success:", res);
-              localStorage.setItem(LS_Keys.username, formData.username);
-              messageApi.success({ content: "Вы успешно зарегистрировались!" });
+              localStorage.setItem(LS_Keys.rating, res.data.rating);
+              messageApi.success({
+                content: `Одобрено! Ваш кредитный рейтинг - ${res.data.rating}`,
+              });
               setModal({ isOpen: false, confirmLoading: false });
+              window.location.reload();
               return res;
             })
             .catch((err) => {
@@ -96,7 +99,7 @@ export default function Login({ setModal, modal }: LoginProps) {
         </Form.Item>
 
         <Form.Item style={{ textAlign: "right", margin: 0 }}>
-          <Button type="primary" htmlType="submit" loading={modal.confirmLoading}>
+          <Button type="primary" htmlType="submit" loading={modal.confirmLoading} size="large">
             Отправить
           </Button>
         </Form.Item>

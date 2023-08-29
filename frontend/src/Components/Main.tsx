@@ -1,28 +1,29 @@
 import { useQuery } from "@tanstack/react-query";
-import { Avatar, Button, Card, FloatButton, Result, Spin } from "antd";
+import { Button, Card, FloatButton } from "antd";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { data } from "../help/data";
 import Meta from "antd/es/card/Meta";
 
 export default function Main() {
-  // const { data, isLoading, error } = useQuery({
-  //   queryFn: () =>
-  //     axios
-  //       .get(`https://freetestapi.com/api/v1/cars`)
-  //       // .get(`https://myfakeapi.com/api/cars`)
-  //       .then((res) => res)
-  //       .catch((err) => err),
-  //   queryKey: ["cars"],
-  //   refetchOnMount: false,
-  //   refetchOnWindowFocus: false,
-  // });
+  const { data: kek } = useQuery({
+    queryFn: () =>
+      axios
+        .get(`http://localhost:8080/api/users`)
+        // .get(`https://freetestapi.com/api/v1/cars`)
+        // .get(`https://myfakeapi.com/api/cars`)
+        .then((res) => res)
+        .catch((err) => err),
+    queryKey: ["cars"],
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
+  });
 
   //   if (isLoading) return <Spin tip="Загрузка..." size="large" style={{ width: "100%" }} />;
 
   //   if (error) return <Result status="error" title="Что-то пошло не так" />;
 
-  console.log(data);
+  console.log(kek, data);
 
   return (
     <div>
@@ -44,7 +45,8 @@ export default function Main() {
                 </div>
               }
               description={
-                <div style={{ width: "100%" }}>
+                <div className="center" style={{ width: "100%" }}>
+                  {el.price * 100}₽
                   <Link to={`/car/${el.id - 1}`}>
                     <Button type="primary" style={{ float: "right" }}>
                       More
