@@ -12,6 +12,8 @@ import javax.validation.constraints.NotEmpty;
 public class OrderDtoRequest {
 
     private String name;
+    private String carName;
+    private double carPrice;
     @NotEmpty(message = "{passportdetails.notempty}")
     private String passportDetails;
     private double monthlyPayment;

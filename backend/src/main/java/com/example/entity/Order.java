@@ -17,12 +17,11 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    @Column(name = "passport_details")
+    private String carName;
+    private double carPrice;
     private String passportDetails;
-    @Column(name = "monthly_payment")
     private double monthlyPayment;
     private double rate;
-    @Column(name = "init_fee")
     private double initFee;
     private int year;
     private String email;
