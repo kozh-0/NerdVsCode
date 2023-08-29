@@ -17,11 +17,9 @@ export default function CreditForm() {
       <Form
         style={{ maxWidth: 600 }}
         onFinish={(formData: FormData) => {
-          console.log(formData);
           axios
             .post("http://localhost:8080/api/clients", formData)
             .then((res) => {
-              console.log("Success:", res);
               messageApi.success({
                 content: `Одобрено! Ваш кредитный рейтинг - ${res.data.rating}`,
               });
@@ -36,7 +34,6 @@ export default function CreditForm() {
               return res;
             })
             .catch((err: AxiosError) => {
-              console.log("ERR", err);
               messageApi.error({
                 content:
                   err.response?.status === 500
@@ -46,7 +43,6 @@ export default function CreditForm() {
               return err;
             });
         }}
-        onFinishFailed={(errInfo) => console.error(errInfo)}
         autoComplete="off"
       >
         <Tooltip

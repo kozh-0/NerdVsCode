@@ -48,7 +48,6 @@ export default function Credit({ car }: { car: CarProps }) {
 
   const months = year * 12;
   const monthsRate = rate / 12;
-  console.log(rate);
 
   const ratioA = +((monthsRate * (1 + monthsRate) ** months) / ((1 + monthsRate) ** months - 1));
 
@@ -58,7 +57,7 @@ export default function Credit({ car }: { car: CarProps }) {
     <div style={{ maxWidth: "600px", margin: "0 auto" }}>
       <h2 style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
         <img src="/psb.jpg" alt="ПСБ" style={{ width: "50px", borderRadius: "7px" }} />
-        &nbsp;Предложение от ПСБ
+        &nbsp;СмартКредит от ПСБ
       </h2>
       <div className="center" style={{ justifyContent: "space-evenly" }}>
         <Radio.Group
@@ -124,45 +123,45 @@ export default function Credit({ car }: { car: CarProps }) {
           в месяц на {year} {declOfNum(year, ["год", "года", "лет"])}
         </Tooltip>
 
-        {userRating ? (
-          <>
+        <Modal
+          style={{ position: "relative" }}
+          footer={[
             <Button
+              style={{ position: "absolute", left: 20, bottom: 30 }}
               size="large"
-              type="primary"
               danger
-              style={{ fontWeight: "bold" }}
-              onClick={() => setModal((p) => ({ ...p, isOpen: true }))}
+              key="back"
+              onClick={() => setModal({ confirmLoading: false, isOpen: false })}
             >
-              Оформить
-            </Button>
-            <Modal
-              style={{ position: "relative" }}
-              footer={[
-                <Button
-                  style={{ position: "absolute", left: 20, bottom: 30 }}
-                  size="large"
-                  danger
-                  key="back"
-                  onClick={() => setModal({ confirmLoading: false, isOpen: false })}
-                >
-                  Отменить
-                </Button>,
-              ]}
-              open={modal.isOpen}
-              title="Отправка данных"
-            >
-              <SendForm
-                carId={car.id}
-                carName={`${car.make} ${car.model}`}
-                rubPrice={rubPrice}
-                year={year}
-                initFee={initFee}
-                rate={rate}
-                monthlyPayment={Math.round(monthlyPayment)}
-                setModal={setModal}
-              />
-            </Modal>
-          </>
+              Отменить
+            </Button>,
+          ]}
+          open={modal.isOpen}
+          title="Отправка данных"
+        >
+          <SendForm
+            carId={car.id}
+            carName={`${car.make} ${car.model}`}
+            rubPrice={rubPrice}
+            year={year}
+            initFee={initialFee}
+            rate={rate}
+            monthlyPayment={Math.round(monthlyPayment)}
+            setModal={setModal}
+          />
+        </Modal>
+        {userRating ? (
+          <Button
+            size="large"
+            type="primary"
+            danger
+            style={{ fontWeight: "bold" }}
+            onClick={() => {
+              setModal((p) => ({ ...p, isOpen: true }));
+            }}
+          >
+            Оформить
+          </Button>
         ) : (
           <Button
             size="large"

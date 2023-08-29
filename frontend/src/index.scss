@@ -24,6 +24,9 @@ footer {
   background: #ededed;
   .footer_inner {
     a {
+      span {
+        margin-right: 5px;
+      }
       color: black;
       text-decoration: none;
       transition: all ease 0.2s;
@@ -51,7 +54,7 @@ footer {
 
 .App {
   padding: 20px 15px 50px 15px;
-  min-height: calc(100vh - 50px - 100px);
+  min-height: calc(100vh - 50px - 140px);
 }
 
 .center {

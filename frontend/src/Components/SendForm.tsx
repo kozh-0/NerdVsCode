@@ -1,6 +1,7 @@
 import { Button, Form, Input, Tooltip, message } from "antd";
 import axios from "axios";
 import { LS_Keys } from "../help";
+import { useEffect, useState } from "react";
 
 interface SendFormProps {
   monthlyPayment: number;
@@ -31,6 +32,7 @@ export default function SendForm({
   setModal,
 }: SendFormProps) {
   const [messageApi, contextHolder] = message.useMessage();
+  const [resetKey, setRestKey] = useState(0);
 
   const INIT = {
     telegram: localStorage.getItem(LS_Keys.telegram),
@@ -46,8 +48,10 @@ export default function SendForm({
     name: "",
   };
 
+  useEffect(() => setRestKey((p) => p + 1), [monthlyPayment]);
+
   return (
-    <div>
+    <div key={resetKey}>
       {contextHolder}
       <Form
         style={{ maxWidth: 600 }}
@@ -56,18 +60,15 @@ export default function SendForm({
           axios
             .post("http://localhost:8080/api/orders", formData)
             .then((res) => {
-              console.log("Success:", res);
               setModal({ confirmLoading: false, isOpen: false });
               messageApi.success({ content: "Заявка отправлена!" });
               return res;
             })
             .catch((err) => {
-              console.log("ERR", err);
               messageApi.error({ content: "Что-то пошло не так ¯\\_(ツ)_/¯" });
               return err;
             });
         }}
-        onFinishFailed={(errInfo) => console.error(errInfo)}
         autoComplete="off"
       >
         <Form.Item label="Имя" name="name" rules={[{ required: true, message: "Введите имя!" }]}>
@@ -76,7 +77,7 @@ export default function SendForm({
         <Form.Item label="Машины" name="carName">
           <Input disabled />
         </Form.Item>
-        <Form.Item label="Цена машины" name="carPrice">
+        <Form.Item label="Цена машины ₽" name="carPrice">
           <Input disabled />
         </Form.Item>
         <Form.Item
