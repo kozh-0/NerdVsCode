@@ -4,7 +4,7 @@ import CreditForm from "./CreditForm";
 import declOfNum, { LS_Keys } from "../help";
 import { creditScoring } from "../help";
 import { QuestionCircleTwoTone } from "@ant-design/icons";
-import SendForm from "./SendForm";
+import LoginForm from "./LoginForm";
 import CreditTable from "./CreditTable";
 const { Text } = Typography;
 
@@ -141,7 +141,7 @@ export default function Credit({ car }: { car: CarProps }) {
             open={modal.isOpen}
             title="Отправка данных"
           >
-            <SendForm
+            <LoginForm
               carId={car.id}
               carName={`${car.make} ${car.model}`}
               rubPrice={rubPrice}

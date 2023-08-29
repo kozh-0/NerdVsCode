@@ -1,11 +1,11 @@
 import { Button, Descriptions, Typography } from "antd";
 import { useNavigate, useParams } from "react-router-dom";
 import { data } from "../help/data";
-import Credit from "./Credit";
+import Credit from "../Components/Credit";
 const { Item } = Descriptions;
 const { Title } = Typography;
 
-export default function Page() {
+export default function CarPage() {
   const { id } = useParams();
   const navigate = useNavigate();
 

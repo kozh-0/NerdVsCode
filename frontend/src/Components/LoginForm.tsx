@@ -3,7 +3,7 @@ import axios from "axios";
 import { LS_Keys } from "../help";
 import { useEffect, useState } from "react";
 
-interface SendFormProps {
+interface FormSendProps {
   monthlyPayment: number;
   rate: number;
   initFee: number;
@@ -14,14 +14,14 @@ interface SendFormProps {
   setModal: (obj: React.SetStateAction<{ isOpen: boolean; confirmLoading: boolean }>) => void;
 }
 
-interface FormSendData extends SendFormProps {
+interface SendDataForm extends FormSendProps {
   email: string;
   telegram: string;
   name: string;
   passportDetails: string;
 }
 
-export default function SendForm({
+export default function LoginForm({
   monthlyPayment,
   rate,
   initFee,
@@ -30,7 +30,7 @@ export default function SendForm({
   carName,
   carId,
   setModal,
-}: SendFormProps) {
+}: FormSendProps) {
   const [messageApi, contextHolder] = message.useMessage();
   const [resetKey, setRestKey] = useState(0);
 
@@ -56,7 +56,7 @@ export default function SendForm({
       <Form
         style={{ maxWidth: 600 }}
         initialValues={INIT}
-        onFinish={(formData: Omit<FormSendData, "setModal">) => {
+        onFinish={(formData: Omit<SendDataForm, "setModal">) => {
           axios
             .post("http://localhost:8080/api/orders", formData)
             .then((res) => {

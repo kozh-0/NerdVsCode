@@ -1,6 +1,6 @@
-import Main from "./Components/Main";
+import Main from "./pages/Main";
 import { Route, Routes } from "react-router-dom";
-import Page from "./Components/Page";
+import CarPage from "./pages/CarPage";
 import Header from "./Layout/Header";
 import Footer from "./Layout/Footer";
 import { FloatButton } from "antd";
@@ -12,7 +12,7 @@ export default function App() {
       <div className="App">
         <Routes>
           <Route path="/" element={<Main />} />
-          <Route path="/car/:id" element={<Page />} />
+          <Route path="/car/:id" element={<CarPage />} />
         </Routes>
       </div>
       <Footer />
