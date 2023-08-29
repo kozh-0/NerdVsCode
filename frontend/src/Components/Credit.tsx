@@ -86,7 +86,12 @@ export default function Credit({ price }: { price: number }) {
           step={10000}
           onChange={(val) => setInitialFee(val)}
         />
-        <Tooltip title="Вы не можете внести более 60% от стоимости машины" placement="right">
+        <Tooltip
+          title={`Вы не можете внести более 60% и менее ${
+            userRating ? Math.round(userRating.initialFee) * 100 : 0.2 * 100
+          }% от стоимости машины`}
+          placement="right"
+        >
           {Math.round(initialFee)}₽
         </Tooltip>
       </div>

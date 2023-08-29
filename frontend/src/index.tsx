@@ -11,11 +11,11 @@ axios.defaults.headers.common["Access-Control-Allow-Origin"] = "*";
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
-    <BrowserRouter>
-      <QueryClientProvider client={new QueryClient()}>
+    <QueryClientProvider client={new QueryClient()}>
+      <BrowserRouter>
         <ReactQueryDevtools initialIsOpen={true} />
         <App />
-      </QueryClientProvider>
-    </BrowserRouter>
+      </BrowserRouter>
+    </QueryClientProvider>
   </React.StrictMode>
 );

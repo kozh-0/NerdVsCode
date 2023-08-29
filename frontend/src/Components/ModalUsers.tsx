@@ -1,9 +1,25 @@
 import { useQuery } from "@tanstack/react-query";
-import { Result, Spin } from "antd";
+import { Avatar, Card, Result, Spin, Typography } from "antd";
+import Meta from "antd/es/card/Meta";
 import axios from "axios";
+const { Text } = Typography;
+
+interface UserI {
+  id: number;
+  lastName: string;
+  firstName: string;
+  patronymic: string;
+  passportDetails: string;
+  email: string;
+  age: number;
+  workExperience: number;
+  loanSecurity: string;
+  debtLoad: number;
+  numberOpenLoans: number;
+}
 
 export default function ModalUsers() {
-  const { data, isLoading, error } = useQuery({
+  const { data, isSuccess, error } = useQuery<{ data: UserI[] }>({
     queryFn: () =>
       axios(`http://localhost:8080/api/users`)
         .then((res) => res)
@@ -13,7 +29,7 @@ export default function ModalUsers() {
     refetchOnWindowFocus: false,
   });
 
-  if (isLoading) return <Spin tip="Загрузка..." size="large" style={{ width: "100%" }} />;
+  if (!isSuccess) return <Spin tip="Загрузка..." size="large" style={{ width: "100%" }} />;
 
   if (error) {
     return (
@@ -30,8 +46,32 @@ export default function ModalUsers() {
       />
     );
   }
-
+  const users = data.data;
   console.log(data);
 
-  return <div>ModalUsers</div>;
+  return (
+    <div>
+      {users.map((el) => (
+        <Card style={{ marginTop: 16 }}>
+          <Meta
+            avatar={<Avatar src="https://xsgames.co/randomusers/avatar.php?g=pixel&key=1" />}
+            title={`${el.firstName} ${el.lastName} ${el.patronymic}`}
+            description={
+              <ul>
+                <li>
+                  Паспорт -{" "}
+                  <Text copyable strong>
+                    {el.passportDetails}
+                  </Text>
+                </li>
+                <li>
+                  Кредитный рейтинг - <Text strong>{el.debtLoad}</Text>
+                </li>
+              </ul>
+            }
+          />
+        </Card>
+      ))}
+    </div>
+  );
 }
