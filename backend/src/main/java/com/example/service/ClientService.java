@@ -41,12 +41,6 @@ public class ClientService {
         if (client == null)
             throw new ServerException(ServerErrorCode.CLIENT_NOT_FOUND);
 
-        if (!client.getLastName().equals(clientDtoRequest.getLastName()) || !client.getFirstName().equals(clientDtoRequest.getFirstName()) || !client.getPatronymic().equals(clientDtoRequest.getPatronymic())) {
-            throw new ServerException(ServerErrorCode.INVALID_FULL_NAME);
-        } else if (!client.getEmail().equals(clientDtoRequest.getEmail())) {
-            throw new ServerException(ServerErrorCode.INVALID_EMAIL);
-        }
-
         String rating = scoring(client);
 
         return new ProposalDtoResponse(rating);
