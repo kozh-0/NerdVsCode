@@ -7,6 +7,7 @@ import com.example.entity.Client;
 import com.example.repository.ClientRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
@@ -43,18 +44,14 @@ public class ClientService {
         return new ProposalDtoResponse(rating);
     }
 
-    public ClientDtoResponse getClient(String passportDetails) throws Exception {
-        Client client = webClientBuilder.build()
+    public List<ClientDtoResponse> getClients() throws Exception {
+
+        return webClientBuilder.build()
                 .get()
-                .uri("http://mock-bank:8081/api/clients?passportDetails=" + passportDetails)
+                .uri("http://mock-bank:8081/api/all/clients")
                 .retrieve()
-                .bodyToMono(Client.class)
+                .bodyToMono(new ParameterizedTypeReference<List<ClientDtoResponse>>() {})
                 .block();
-
-        if (client == null)
-            throw new Exception("Клиент не существует");
-
-        return new ClientDtoResponse(client.getId(), client.getLastName(), client.getFirstName(), client.getPatronymic(), client.getPassportDetails(), client.getEmail(), client.getAge(), client.getWorkExperience(), client.getLoanSecurity(), client.getDebtLoad(), client.getNumberOpenLoans());
     }
 
     public static String scoring(Client client) {

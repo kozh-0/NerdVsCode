@@ -22,4 +22,8 @@ public class ClientService {
         return clientRepository.findByPassportDetails(passportDetails);
     }
 
+    public List<Client> getClients() {
+        return clientRepository.findAll();
+    }
+
 }

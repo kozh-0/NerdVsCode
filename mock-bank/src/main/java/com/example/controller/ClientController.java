@@ -23,4 +23,9 @@ public class ClientController {
     public Client getClient(@RequestParam(value = "passportDetails") String passportDetails) {
         return clientService.getClient(passportDetails);
     }
+
+    @GetMapping(value = "/all/clients", produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<Client> getClients() {
+        return clientService.getClients();
+    }
 }
