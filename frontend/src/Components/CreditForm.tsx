@@ -4,11 +4,8 @@ import { LS_Keys } from "../help";
 const { Text } = Typography;
 
 interface FormData {
-  email: string;
-  // firstName: string;
-  // lastName: string;
   passportDetails: string;
-  // patronymic: string;
+  email: string;
   telegram: string;
 }
 
@@ -18,7 +15,6 @@ export default function CreditForm() {
     <div>
       {contextHolder}
       <Form
-        name="basic"
         style={{ maxWidth: 600 }}
         onFinish={(formData: FormData) => {
           console.log(formData);
@@ -53,30 +49,6 @@ export default function CreditForm() {
         onFinishFailed={(errInfo) => console.error(errInfo)}
         autoComplete="off"
       >
-        {/* <Form.Item
-          label="Фамилия"
-          name="lastName"
-          rules={[{ required: true, message: "Введите фамилию!" }]}
-        >
-          <Input />
-        </Form.Item>
-
-        <Form.Item
-          label="Имя"
-          name="firstName"
-          rules={[{ required: true, message: "Введите имя!" }]}
-        >
-          <Input />
-        </Form.Item>
-
-        <Form.Item
-          label="Отчество"
-          name="patronymic"
-          rules={[{ required: true, message: "Введите отчество!" }]}
-        >
-          <Input />
-        </Form.Item> */}
-
         <Tooltip
           title={
             <ul className="form_tooltip">

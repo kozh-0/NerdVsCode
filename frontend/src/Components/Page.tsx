@@ -1,60 +1,17 @@
-import { useQuery } from "@tanstack/react-query";
-import { Button, Descriptions, Result, Spin, Typography } from "antd";
-import axios from "axios";
+import { Button, Descriptions, Typography } from "antd";
 import { useNavigate, useParams } from "react-router-dom";
 import { data } from "../help/data";
 import Credit from "./Credit";
 const { Item } = Descriptions;
-const { Text, Title } = Typography;
+const { Title } = Typography;
 
 export default function Page() {
   const { id } = useParams();
   const navigate = useNavigate();
 
-  //   const { data, isLoading, error } = useQuery({
-  //     queryFn: () =>
-  //       axios
-  //         .get(`https://freetestapi.com/api/v1/cars/${id}`)
-  //         .then((res) => res)
-  //         .catch((err) => err),
-  //     queryKey: ["cars", id],
-  //     refetchOnMount: false,
-  //     refetchOnWindowFocus: false,
-  //   });
-
-  //   useEffect(() => {
-  //     axios("https://freetestapi.com/api/v1/cars")
-  //       .then((res) => {
-  //         console.log(res);
-  //         return res;
-  //       })
-  //       .catch((err) => {
-  //         console.log(err);
-  //         return err;
-  //       });
-  //   }, []);
-
-  //   if (isLoading) return <Spin tip="Загрузка..." size="large" style={{ width: "100%" }} />;
-
-  //   if (error) {
-  //     return (
-  //       <Result
-  //         status="error"
-  //         title="Что-то пошло не так"
-  //         // subTitle="Please check and modify the following information before resubmitting."
-  //         // extra={[
-  //         //   <Button type="primary" key="console">
-  //         //     Go Console
-  //         //   </Button>,
-  //         //   <Button key="buy">Buy Again</Button>,
-  //         // ]}
-  //       />
-  //     );
-  //   }
-  if (!id) return <h2>Что-то не так</h2>;
+  if (!id) return <h2>Что-то пошло не так</h2>;
 
   const car = data[id as any];
-  console.log(car);
 
   return (
     <div>
@@ -66,7 +23,6 @@ export default function Page() {
           className="image"
           style={{ background: `#333 url(${car.image}) no-repeat right top / cover` }}
         />
-        {/* <img src={car.image} alt={car.model} /> */}
         <div className="car_info_parent">
           <div className="car_info_parent_title">
             <Title level={1}>
@@ -99,7 +55,7 @@ export default function Page() {
           </Descriptions>
         </div>
       </div>
-      <Credit price={car.price} />
+      <Credit car={car} />
     </div>
   );
 }

@@ -1,21 +1,36 @@
-import { Button, Form, Input, Tooltip, Typography, message } from "antd";
+import { Button, Form, Input, Tooltip, message } from "antd";
 import axios from "axios";
 import { LS_Keys } from "../help";
-
-const { Text } = Typography;
 
 interface SendFormProps {
   monthlyPayment: number;
   rate: number;
   initFee: number;
   year: number;
+  rubPrice: number;
+  carName: string;
+  carId: number;
+  setModal: (obj: React.SetStateAction<{ isOpen: boolean; confirmLoading: boolean }>) => void;
 }
 
-export default function SendForm({ monthlyPayment, rate, initFee, year }: SendFormProps) {
-  const [messageApi, contextHolder] = message.useMessage();
+interface FormSendData extends SendFormProps {
+  email: string;
+  telegram: string;
+  name: string;
+  passportDetails: string;
+}
 
-  //   начальные значения сформитровать
-  console.log({ monthlyPayment, rate, initFee, year });
+export default function SendForm({
+  monthlyPayment,
+  rate,
+  initFee,
+  year,
+  rubPrice,
+  carName,
+  carId,
+  setModal,
+}: SendFormProps) {
+  const [messageApi, contextHolder] = message.useMessage();
 
   const INIT = {
     telegram: localStorage.getItem(LS_Keys.telegram),
@@ -25,68 +40,51 @@ export default function SendForm({ monthlyPayment, rate, initFee, year }: SendFo
     rate: rate * 100,
     initFee,
     year,
+    carPrice: rubPrice,
+    carName,
+    carId,
+    name: "",
   };
+
   return (
     <div>
       {contextHolder}
       <Form
-        name="basic"
         style={{ maxWidth: 600 }}
         initialValues={INIT}
-        onFinish={(formData: FormData) => {
-          console.log(formData);
-          return;
-          //   axios
-          //     .post("http://localhost:8080/api/clients", formData)
-          //     .then((res) => {
-          //       console.log("Success:", res);
-          //       messageApi.success({
-          //         content: `Одобрено! Ваш кредитный рейтинг - ${res.data.rating}`,
-          //       });
-          //     //   localStorage.setItem(LS_Keys.rating, res.data.rating);
-          //       //   localStorage.setItem(LS_Keys.telegram, formData.telegram);
-          //       //   localStorage.setItem(LS_Keys.email, formData.email);
-          //       // localStorage.setItem(LS_Keys.passportDetails, formData.email);
-
-          //       setTimeout(() => {
-          //         window.location.reload();
-          //       }, 1000);
-          //       return res;
-          //     })
-          //     .catch((err) => {
-          //       console.log("ERR", err);
-          //       messageApi.error({ content: "Что-то пошло не так ¯\\_(ツ)_/¯" });
-          //       return err;
-          //     });
+        onFinish={(formData: Omit<FormSendData, "setModal">) => {
+          axios
+            .post("http://localhost:8080/api/orders", formData)
+            .then((res) => {
+              console.log("Success:", res);
+              setModal({ confirmLoading: false, isOpen: false });
+              messageApi.success({ content: "Заявка отправлена!" });
+              return res;
+            })
+            .catch((err) => {
+              console.log("ERR", err);
+              messageApi.error({ content: "Что-то пошло не так ¯\\_(ツ)_/¯" });
+              return err;
+            });
         }}
         onFinishFailed={(errInfo) => console.error(errInfo)}
         autoComplete="off"
       >
-        {/* <Form.Item
-          label="Фамилия"
-          name="lastName"
-          rules={[{ required: true, message: "Введите фамилию!" }]}
-        >
+        <Form.Item label="Имя" name="name" rules={[{ required: true, message: "Введите имя!" }]}>
           <Input />
         </Form.Item>
-
-        <Form.Item
-          label="Имя"
-          name="firstName"
-          rules={[{ required: true, message: "Введите имя!" }]}
-        >
-          <Input />
+        <Form.Item label="Машины" name="carName">
+          <Input disabled />
         </Form.Item>
-
+        <Form.Item label="Цена машины" name="carPrice">
+          <Input disabled />
+        </Form.Item>
         <Form.Item
-          label="Отчество"
-          name="patronymic"
-          rules={[{ required: true, message: "Введите отчество!" }]}
+          label="Цена машины"
+          name="carPrice"
+          style={{ height: 0, margin: 0, opacity: 0, pointerEvents: "none" }}
         >
-          <Input />
-        </Form.Item> */}
-        <Form.Item label="Имя" name="name">
-          <Input />
+          <Input disabled />
         </Form.Item>
         <Form.Item label="Паспортные данные" name="passportDetails">
           <Input disabled />

@@ -31,23 +31,9 @@ export default function ModalUsers() {
 
   if (!isSuccess) return <Spin tip="Загрузка..." size="large" style={{ width: "100%" }} />;
 
-  if (error) {
-    return (
-      <Result
-        status="error"
-        title="Что-то пошло не так"
-        // subTitle="Please check and modify the following information before resubmitting."
-        // extra={[
-        //   <Button type="primary" key="console">
-        //     Go Console
-        //   </Button>,
-        //   <Button key="buy">Buy Again</Button>,
-        // ]}
-      />
-    );
-  }
+  if (error) return <Result status="error" title="Что-то пошло не так" />;
+
   const users = data.data;
-  console.log(data);
 
   return (
     <div>

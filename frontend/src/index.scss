@@ -11,7 +11,6 @@ code {
 }
 
 .HEADER {
-  // height: 50px;
   position: sticky;
   top: 0;
   z-index: 10;
@@ -37,9 +36,6 @@ footer {
 
 ::-webkit-scrollbar {
   width: 10px;
-  // &-track {
-  // background: var(--bg-dark-theme);
-  // }
   &-thumb {
     border-radius: 5px;
     background: #6c6c6c;
@@ -58,13 +54,6 @@ footer {
   min-height: calc(100vh - 50px - 100px);
 }
 
-// .auth {
-//   position: absolute;
-//   top: 50%;
-//   left: 50%;
-//   transform: translate(-50%, -50%);
-// }
-
 .center {
   display: flex;
   justify-content: space-between;
@@ -73,7 +62,6 @@ footer {
 }
 
 .price_tag {
-  // margin: 0;
   padding: 4px 8px;
   border-radius: 7px;
   background: rgb(71, 223, 0);
@@ -103,9 +91,6 @@ footer {
   padding: 0;
   span {
     color: white;
-    // .ant-typography-copy {
-    //   color: #1677ff !important;
-    // }
   }
 }
 

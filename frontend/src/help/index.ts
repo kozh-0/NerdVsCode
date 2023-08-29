@@ -11,7 +11,7 @@ export default function declOfNum(num: number, titles: [string, string, string])
   return titles[num % 100 > 4 && num % 100 < 20 ? 2 : cases[num % 10 < 5 ? num % 10 : 5]];
 }
 
-export const creditRates = {
+export const creditScoring = {
   Высокий: { initialFee: 0.1, rate: 0.06 },
   Средний: { initialFee: 0.2, rate: 0.1 },
   Низкий: { initialFee: 0.3, rate: 0.15 },
