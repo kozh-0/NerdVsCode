@@ -16,3 +16,11 @@ export const creditScoring = {
   Средний: { initialFee: 0.2, rate: 0.1 },
   Низкий: { initialFee: 0.3, rate: 0.15 },
 };
+
+export function addZero(num: string | number) {
+  if (typeof num === "string") {
+    return parseInt(num) < 10 ? `0${parseInt(num)}` : num;
+  } else {
+    return num < 10 ? `0${num}` : num;
+  }
+}

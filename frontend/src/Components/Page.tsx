@@ -55,6 +55,7 @@ export default function Page() {
           </Descriptions>
         </div>
       </div>
+
       <Credit car={car} />
     </div>
   );
