@@ -35,7 +35,7 @@ public class OrderService {
         if (client == null)
             throw new ServerException(ServerErrorCode.CLIENT_NOT_FOUND);
 
-        Order order = new Order(0L, orderDtoRequest.getName(), orderDtoRequest.getPassportDetails(), orderDtoRequest.getMonthlyPayment(), orderDtoRequest.getRate(), orderDtoRequest.getInitFee(), orderDtoRequest.getYear(), orderDtoRequest.getEmail(), orderDtoRequest.getTelegram());
+        Order order = new Order(0L, orderDtoRequest.getName(), orderDtoRequest.getCarName(), orderDtoRequest.getCarPrice(), orderDtoRequest.getPassportDetails(), orderDtoRequest.getMonthlyPayment(), orderDtoRequest.getRate(), orderDtoRequest.getInitFee(), orderDtoRequest.getYear(), orderDtoRequest.getEmail(), orderDtoRequest.getTelegram());
         orderRepository.save(order);
 
         return "Заявка отправлена!";
