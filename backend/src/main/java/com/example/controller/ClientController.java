@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -24,7 +25,7 @@ public class ClientController {
     }
 
     @PostMapping(value = "/clients", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ProposalDtoResponse proposalProcessing(@RequestBody ClientDtoRequest clientDtoRequest) throws Exception {
+    public ProposalDtoResponse proposalProcessing(@Valid @RequestBody ClientDtoRequest clientDtoRequest) throws Exception {
         return clientService.proposalProcessing(clientDtoRequest);
     }
 

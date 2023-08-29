@@ -4,6 +4,8 @@ import com.example.dto.request.ClientDtoRequest;
 import com.example.dto.response.ClientDtoResponse;
 import com.example.dto.response.ProposalDtoResponse;
 import com.example.entity.Client;
+import com.example.exception.ServerErrorCode;
+import com.example.exception.ServerException;
 import com.example.repository.ClientRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -37,7 +39,13 @@ public class ClientService {
                 .block();
 
         if (client == null)
-            throw new Exception("Клиент не существует");
+            throw new ServerException(ServerErrorCode.CLIENT_NOT_FOUND);
+
+        if (!client.getLastName().equals(clientDtoRequest.getLastName()) || !client.getFirstName().equals(clientDtoRequest.getFirstName()) || !client.getPatronymic().equals(clientDtoRequest.getPatronymic())) {
+            throw new ServerException(ServerErrorCode.INVALID_FULL_NAME);
+        } else if (!client.getEmail().equals(clientDtoRequest.getEmail())) {
+            throw new ServerException(ServerErrorCode.INVALID_EMAIL);
+        }
 
         String rating = scoring(client);
 
