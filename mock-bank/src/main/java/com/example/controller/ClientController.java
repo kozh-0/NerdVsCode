@@ -20,12 +20,7 @@ public class ClientController {
     }
 
     @GetMapping(value = "/clients", produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<Client> getAllClients() {
-        return clientService.getAllClients();
-    }
-
-    @GetMapping(value = "/clients/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Client getClient(@PathVariable long id) {
-        return clientService.getClient(id);
+    public Client getClient(@RequestParam(value = "passportDetails") String passportDetails) {
+        return clientService.getClient(passportDetails);
     }
 }
