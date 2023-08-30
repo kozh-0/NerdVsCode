@@ -1,6 +1,6 @@
 import { Button, Form, Input, Tooltip, message } from "antd";
 import axios from "axios";
-import { LS_Keys } from "../help";
+import { API_URL, LS_Keys } from "../help";
 import { useEffect, useState } from "react";
 
 interface FormSendProps {
@@ -58,7 +58,7 @@ export default function LoginForm({
         initialValues={INIT}
         onFinish={(formData: Omit<SendDataForm, "setModal">) => {
           axios
-            .post("http://localhost:8080/api/orders", formData)
+            .post(`${API_URL}api/orders`, formData)
             .then((res) => {
               setModal({ confirmLoading: false, isOpen: false });
               messageApi.success({ content: "Заявка отправлена!" });
@@ -104,7 +104,7 @@ export default function LoginForm({
         </Form.Item>
         <Tooltip
           title="Телеграм и почта нужны настоящие для отправки кредитного предложения"
-          placement="right"
+          // placement="right"
         >
           <Form.Item
             label="E-mail"

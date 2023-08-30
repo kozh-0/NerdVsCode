@@ -1,6 +1,6 @@
 import { Button, Form, Input, Tooltip, Typography, message } from "antd";
 import axios, { AxiosError } from "axios";
-import { LS_Keys } from "../help";
+import { API_URL, LS_Keys } from "../help";
 const { Text } = Typography;
 
 interface FormData {
@@ -18,7 +18,7 @@ export default function CreditForm() {
         style={{ maxWidth: 600 }}
         onFinish={(formData: FormData) => {
           axios
-            .post("http://localhost:8080/api/clients", formData)
+            .post(`${API_URL}api/clients`, formData)
             .then((res) => {
               messageApi.success({
                 content: `Одобрено! Ваш кредитный рейтинг - ${res.data.rating}`,
@@ -59,7 +59,7 @@ export default function CreditForm() {
               </li>
             </ul>
           }
-          placement="right"
+          // placement="right"
         >
           <Form.Item
             label="Паспортные данные"
@@ -71,7 +71,7 @@ export default function CreditForm() {
         </Tooltip>
         <Tooltip
           title="Телеграм и почта нужны настоящие для отправки кредитного предложения"
-          placement="right"
+          // placement="right"
         >
           <Form.Item
             label="E-mail"

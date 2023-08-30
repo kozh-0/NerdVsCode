@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { Avatar, Card, Result, Spin, Typography } from "antd";
 import Meta from "antd/es/card/Meta";
 import axios from "axios";
+import { API_URL } from "../help";
 const { Text } = Typography;
 
 interface UserI {
@@ -21,7 +22,7 @@ interface UserI {
 export default function ModalUsers() {
   const { data, isSuccess, error } = useQuery<{ data: UserI[] }>({
     queryFn: () =>
-      axios(`http://localhost:8080/api/clients`)
+      axios(`${API_URL}api/clients`)
         .then((res) => res)
         .catch((err) => err),
     queryKey: ["users"],
@@ -38,7 +39,7 @@ export default function ModalUsers() {
   return (
     <div>
       {users.map((el, idx) => (
-        <Card style={{ marginTop: 16 }}>
+        <Card style={{ marginTop: 16 }} key={el.passportDetails}>
           <Meta
             avatar={
               <Avatar size="large" src={`https://randomuser.me/api/portraits/lego/${idx}.jpg`} />

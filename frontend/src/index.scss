@@ -91,6 +91,7 @@ footer {
 }
 
 .form_tooltip {
+  list-style: none;
   padding: 0;
   span {
     color: white;
@@ -98,6 +99,9 @@ footer {
 }
 .credit_suggest {
   margin-right: 4%;
+  .years {
+    margin-top: 12px;
+  }
 }
 
 @media (max-width: 980px) {
@@ -124,6 +128,9 @@ footer {
 @media (max-width: 550px) {
   .credit_suggest {
     margin-right: 0;
+    .years {
+      margin-top: 30px;
+    }
   }
   .car_info_parent {
     &_title {

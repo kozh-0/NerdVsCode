@@ -73,13 +73,13 @@ export default function Credit({ car }: { car: CarProps }) {
           {!userRating && (
             <Tooltip
               title='Для просмотра заблокированных продуктов, нажмите на кнопку "Узнать"'
-              placement="right"
+              // placement="right"
             >
               <QuestionCircleTwoTone style={{ transform: "scale(1.5)" }} />
             </Tooltip>
           )}
         </div>
-        <div style={{ marginTop: "12px" }}>
+        <div className="years">
           Срок
           <div className="center">
             <Slider
@@ -106,7 +106,7 @@ export default function Credit({ car }: { car: CarProps }) {
             title={`Вы не можете внести более 60% и менее ${
               userRating ? userRating.initialFee * 100 : 0.2 * 100
             }% от стоимости машины`}
-            placement="right"
+            // placement="right"
           >
             {Math.round(initialFee)}₽
           </Tooltip>
@@ -118,10 +118,10 @@ export default function Credit({ car }: { car: CarProps }) {
                 ? "Предлагаем вам такие условия"
                 : 'Это усредненные значения, для уточнения условий нажмите на кнопку "Узнать"'
             }
-            placement="left"
+            // placement="left"
           >
             <Text keyboard style={{ fontSize: "20px" }}>
-              {Math.round(monthlyPayment)}₽
+              {Math.round(monthlyPayment)}р.
             </Text>{" "}
             в месяц на {year} {declOfNum(year, ["год", "года", "лет"])}
           </Tooltip>

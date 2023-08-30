@@ -1,6 +1,11 @@
 import { Menu, MenuProps, Modal } from "antd";
 import { LS_Keys } from "../help";
-import { LogoutOutlined, StarOutlined, UsergroupAddOutlined } from "@ant-design/icons";
+import {
+  BarsOutlined,
+  LogoutOutlined,
+  StarOutlined,
+  UsergroupAddOutlined,
+} from "@ant-design/icons";
 import ModalUsers from "../Components/ModalUsers";
 import { Link } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
@@ -56,5 +61,13 @@ export default function Header() {
       },
     },
   ];
-  return <Menu theme={"dark"} mode="horizontal" items={items} className="HEADER" />;
+  return (
+    <Menu
+      theme={"dark"}
+      mode="horizontal"
+      items={items}
+      className="HEADER"
+      overflowedIndicator={<BarsOutlined style={{ transform: "scale(1.5)" }} />}
+    />
+  );
 }

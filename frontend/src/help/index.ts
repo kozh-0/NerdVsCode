@@ -24,3 +24,5 @@ export function addZero(num: string | number) {
     return num < 10 ? `0${num}` : num;
   }
 }
+
+export const API_URL = "http://localhost:8080/";
