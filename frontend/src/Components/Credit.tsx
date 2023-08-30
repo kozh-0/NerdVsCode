@@ -53,10 +53,11 @@ export default function Credit({ car }: { car: CarProps }) {
   const ratioA = +((monthsRate * (1 + monthsRate) ** months) / ((1 + monthsRate) ** months - 1));
 
   const monthlyPayment = (rubPrice - initialFee) * ratioA;
+  console.log(ratioA);
 
   return (
     <div style={{ justifyContent: "center", alignItems: "flex-start" }} className="center">
-      <div style={{ marginRight: "4%" }}>
+      <div className="credit_suggest">
         <h2 style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
           <img src="/psb.jpg" alt="ПСБ" style={{ width: "50px", borderRadius: "7px" }} />
           &nbsp;СмартКредит от ПСБ
@@ -125,45 +126,47 @@ export default function Credit({ car }: { car: CarProps }) {
             в месяц на {year} {declOfNum(year, ["год", "года", "лет"])}
           </Tooltip>
 
-          <Modal
-            style={{ position: "relative" }}
-            footer={[
-              <Button
-                style={{ position: "absolute", left: 20, bottom: 30 }}
-                size="large"
-                danger
-                key="back"
-                onClick={() => setModal({ confirmLoading: false, isOpen: false })}
-              >
-                Отменить
-              </Button>,
-            ]}
-            open={modal.isOpen}
-            title="Отправка данных"
-          >
-            <LoginForm
-              carId={car.id}
-              carName={`${car.make} ${car.model}`}
-              rubPrice={rubPrice}
-              year={year}
-              initFee={initialFee}
-              rate={rate}
-              monthlyPayment={Math.round(monthlyPayment)}
-              setModal={setModal}
-            />
-          </Modal>
           {userRating ? (
-            <Button
-              size="large"
-              type="primary"
-              danger
-              style={{ fontWeight: "bold" }}
-              onClick={() => {
-                setModal((p) => ({ ...p, isOpen: true }));
-              }}
-            >
-              Оформить
-            </Button>
+            <>
+              <Modal
+                style={{ position: "relative" }}
+                footer={[
+                  <Button
+                    style={{ position: "absolute", left: 20, bottom: 30 }}
+                    size="large"
+                    danger
+                    key="back"
+                    onClick={() => setModal({ confirmLoading: false, isOpen: false })}
+                  >
+                    Отменить
+                  </Button>,
+                ]}
+                open={modal.isOpen}
+                title="Отправка данных"
+              >
+                <LoginForm
+                  carId={car.id}
+                  carName={`${car.make} ${car.model}`}
+                  rubPrice={rubPrice}
+                  year={year}
+                  initFee={initialFee}
+                  rate={rate}
+                  monthlyPayment={Math.round(monthlyPayment)}
+                  setModal={setModal}
+                />
+              </Modal>
+              <Button
+                size="large"
+                type="primary"
+                danger
+                style={{ fontWeight: "bold" }}
+                onClick={() => {
+                  setModal((p) => ({ ...p, isOpen: true }));
+                }}
+              >
+                Оформить
+              </Button>
+            </>
           ) : (
             <Button
               size="large"

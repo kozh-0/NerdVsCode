@@ -96,6 +96,9 @@ footer {
     color: white;
   }
 }
+.credit_suggest {
+  margin-right: 4%;
+}
 
 @media (max-width: 980px) {
   .car_info {
@@ -119,6 +122,9 @@ footer {
   }
 }
 @media (max-width: 550px) {
+  .credit_suggest {
+    margin-right: 0;
+  }
   .car_info_parent {
     &_title {
       flex-direction: column;

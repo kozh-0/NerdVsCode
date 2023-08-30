@@ -10,24 +10,26 @@ interface CreditTableProps {
 }
 
 export default function CreditTable({ year, creditBody, monthlyPayment }: CreditTableProps) {
-  const arr: { year: number; payment: string; body: string }[] = [];
+  const arr: { year: number; payment: string; debt: string }[] = [];
   const d = new Date();
 
   let todayYear = d.getFullYear();
   const payment = monthlyPayment * 12;
+  let totalDebt = payment * year;
 
   for (let i = 0; i < todayYear + year - todayYear; i++) {
-    creditBody -= payment;
+    totalDebt -= payment;
     arr.push({
       year: todayYear++,
       payment: payment + " ₽",
-      body: `${creditBody < 0 ? 0 : creditBody} ₽`,
+      debt: `${totalDebt < 0 ? 0 : totalDebt} ₽`,
     });
   }
 
   return (
     <div>
       <Table
+        bordered
         pagination={false}
         footer={() => (
           <CSVLink
@@ -44,11 +46,11 @@ export default function CreditTable({ year, creditBody, monthlyPayment }: Credit
         )}
         dataSource={arr}
         scroll={{ y: 300 }}
-        style={{ width: "500px", height: "400px", marginTop: "10px" }}
+        style={{ width: "500px", height: "400px", marginTop: "20px" }}
       >
         <Column title="Года" dataIndex="year" />
         <Column title="Сумма платежа" dataIndex="payment" />
-        <Column title="Тело кредита" dataIndex="body" />
+        <Column title="Оставшийся долг" dataIndex="debt" />
       </Table>
     </div>
   );
